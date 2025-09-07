@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="X0 Meme Coin: The first .OKX domain-derived token on X Layer blockchain, based on 0.OKX, with unique inscription-like features. Explore the future of .OKX domains!">
+    <meta name="keywords" content="X0, OKX, Meme Coin, X Layer, Blockchain, Domain Token, Web3, Cryptocurrency, WoofingJace">
+    <meta name="robots" content="index, follow">
+    <title>X0 - The First .OKX Meme Coin</title>
+    <base href="/okxfun/">
+    <link rel="icon" href="https://woofswap.finance/image/tokens/xo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0A0A0F 0%, #1A1A2E 100%);
+            color: #E0E0FF;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        #particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #00FF88;
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo {
+            width: 130px;
+            height: 65px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px #00FF88);
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-buttons a, .nav-buttons button {
+            background: transparent;
+            border: 2px solid #00FF88;
+            border-radius: 8px;
+            padding: 0.8rem 1.6rem;
+            color: #00FF88;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-buttons button {
+            background: rgba(0, 255, 136, 0.1);
+        }
+        .nav-buttons a:hover, .nav-buttons button:hover {
+            background: #00FF88;
+            color: #0A0A0F;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+            transform: translateY(-2px);
+        }
+        .nav-buttons a::before, .nav-buttons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.4), transparent);
+            transition: left 0.4s ease;
+        }
+        .nav-buttons a:hover::before, .nav-buttons button:hover::before {
+            left: 100%;
+        }
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            color: #00FF88;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+            margin-bottom: 1.5rem;
+            animation: neon-glow 2s ease-in-out infinite alternate;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: #B0B0FF;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        @keyframes neon-glow {
+            from { text-shadow: 0 0 10px rgba(0, 255, 136, 0.6); }
+            to { text-shadow: 0 0 20px rgba(0, 255, 136, 0.9); }
+        }
+        .content {
+            width: 100%;
+            padding: 2rem;
+            display: grid;
+            gap: 2rem;
+        }
+        .section {
+            background: rgba(20, 20, 40, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.2);
+            border: 1px solid #00FF88;
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        .section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #00FF88;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+        }
+        .section p {
+            font-size: 1.1rem;
+            color: #E0E0FF;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .highlight {
+            color: #A100FF;
+            font-weight: 600;
+        }
+        .token-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .token-card {
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid #00FF88;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .token-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.5);
+        }
+        .token-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: #00FF88;
+            margin-bottom: 1rem;
+        }
+        .token-card p {
+            font-size: 1rem;
+            color: #B0B0FF;
+            margin-bottom: 0.8rem;
+        }
+        footer {
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid #00FF88;
+            color: #E0E0FF;
+            font-size: 1rem;
+        }
+        footer a {
+            color: #A100FF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #FFFFFF;
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .logo {
+                width: 100px;
+                height: 50px;
+            }
+            .nav-buttons a, .nav-buttons button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .content {
+                padding: 1rem;
+            }
+            .section {
+                padding: 1.5rem;
+            }
+            .section h2 {
+                font-size: 1.5rem;
+            }
+            .section p {
+                font-size: 0.9rem;
+            }
+            .token-card {
+                padding: 1rem;
+            }
+            .token-card h3 {
+                font-size: 1.2rem;
+            }
+            footer {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-bg"></canvas>
+    <div class="container">
+        <div class="header">
+            <img src="https://woofswap.finance/image/tokens/xo.png" alt="JaceFun OKX" class="logo">
+            <div class="nav-buttons">
+                <a href="https://swap.woofingjace.com/swap?inputCurrency=OKB&outputCurrency=0x428dc4b69a05c128966f2a03693deaac409f1ec5" target="_blank">Trade X0</a>
+                <a href="https://x.com/WoofingJace" target="_blank">JaceLabs</a>
+                <button onclick="switchLanguage('en')" class="lang-btn">EN</button>
+                <button onclick="switchLanguage('zh')" class="lang-btn">中文</button>
+            </div>
+        </div>
+        <div class="hero">
+            <h1 data-en="X0: The First .OKX Meme Coin" data-zh="X0：首个.OKX域名Meme币">X0: The First .OKX Meme Coin</h1>
+            <p data-en="Based on the 0.OKX domain, X0 is the first token on X Layer blockchain with unique inscription-like features." data-zh="基于0.OKX域名，X0是X Layer区块链上首个具有铭文特征的代币。">Based on the 0.OKX domain, X0 is the first token on X Layer blockchain with unique inscription-like features.</p>
+        </div>
+        <div class="content">
+            <div class="section">
+                <h2 data-en="Discover X0" data-zh="探索X0">Discover X0</h2>
+                <p data-en="X0 is the first Meme Coin derived from the <span class='highlight'>0.OKX</span> domain on the <span class='highlight'>X Layer</span> blockchain, with the token symbol <span class='highlight'>X0</span>. More than just a digital asset, it embodies a unique inscription-like identity tightly integrated with the .OKX domain system." data-zh="X0是基于<span class='highlight'>0.OKX</span>域名的首个Meme币，运行在<span class='highlight'>X Layer</span>区块链上，代币符号为<span class='highlight'>X0</span>。它不仅是数字资产，更是一个与.OKX域名系统紧密绑定的独特铭文标识。">X0 is the first Meme Coin derived from the <span class='highlight'>0.OKX</span> domain on the <span class='highlight'>X Layer</span> blockchain, with the token symbol <span class='highlight'>X0</span>. More than just a digital asset, it embodies a unique inscription-like identity tightly integrated with the .OKX domain system.</p>
+                <p data-en="Join the X0 movement by searching <a href='https://woofingjace.com/okxfun/?domain=0.OKX' target='_blank'>0.OKX</a>!" data-zh="通过搜索<a href='https://woofingjace.com/okxfun/?domain=0.OKX' target='_blank'>0.OKX</a>加入X0热潮！">Join the X0 movement by searching <a href='https://woofingjace.com/okxfun/?domain=0.OKX' target='_blank'>0.OKX</a>!</p>
+            </div>
+            <div class="section">
+                <h2 data-en="X0 Token Details" data-zh="X0代币信息">X0 Token Details</h2>
+                <div class="token-list">
+                    <div class="token-card">
+                        <h3 data-en="X0 (Symbol: X0)" data-zh="X0（代币符号：X0)">X0 (Symbol: X0)</h3>
+                        <p data-en="Domain: <span class='highlight'>0.OKX</span>" data-zh="域名：<span class='highlight'>0.OKX</span>">Domain: <span class='highlight'>0.OKX</span></p>
+                        <p data-en="Contract Address: <a href='https://www.okx.com/web3/explorer/xlayer/address/0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>0x428dC4b69A05C128966f2A03693dEAac409F1EC5</a>" data-zh="合约地址：<a href='https://www.okx.com/web3/explorer/xlayer/address/0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>0x428dC4b69A05C128966f2A03693dEAac409F1EC5</a>">Contract Address: <a href='https://www.okx.com/web3/explorer/xlayer/address/0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>0x428dC4b69A05C128966f2A03693dEAac409F1EC5</a></p>
+                        <p data-en="Blockchain: <span class='highlight'>X Layer</span>" data-zh="区块链：<span class='highlight'>X Layer</span>">Blockchain: <span class='highlight'>X Layer</span></p>
+                        <p data-en="Status: Funding in progress, launches on <a href='https://woofingjace.com' target='_blank'>JaceSwap</a> after reaching 20 OKB" data-zh="状态：募资中，达到20 OKB后上线<a href='https://woofingjace.com' target='_blank'>JaceSwap</a>">Status: Funding in progress, launches on <a href='https://woofingjace.com' target='_blank'>JaceSwap</a> after reaching 20 OKB</p>
+                        <p><a href="https://woofingjace.com/okxfun/?domain=0.OKX" target="_blank" data-en="Search 0.OKX to Join" data-zh="搜索0.OKX参与">Search 0.OKX to Join</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <h2 data-en="The Power of .OKX Domains" data-zh=".OKX域名的三大功能">The Power of .OKX Domains</h2>
+                <p data-en=".OKX domains are an innovative protocol on the X Layer blockchain, where each domain is unique, similar to blockchain inscriptions, offering three key features:" data-zh=".OKX域名是X Layer区块链上的创新协议，每个域名独一无二，类似区块链铭文，提供以下三大功能：">.OKX domains are an innovative protocol on the X Layer blockchain, where each domain is unique, similar to blockchain inscriptions, offering three key features:</p>
+                <p data-en="1. <span class='highlight'>Resolve to Wallet Address</span>: Bind your .OKX domain to a blockchain wallet, creating a decentralized identity for seamless Web3 integration." data-zh="1. <span class='highlight'>解析到钱包地址</span>：将.OKX域名绑定到区块链钱包，打造去中心化身份，未来无缝集成Web3钱包。">1. <span class='highlight'>Resolve to Wallet Address</span>: Bind your .OKX domain to a blockchain wallet, creating a decentralized identity for seamless Web3 integration.</p>
+                <p data-en="2. <span class='highlight'>Website Search</span>: Access decentralized websites directly via .OKX domains, building a Web3 search experience akin to Google." data-zh="2. <span class='highlight'>网站搜索</span>：通过.OKX域名直接访问去中心化网站，构建类似谷歌的Web3搜索体验。">2. <span class='highlight'>Website Search</span>: Access decentralized websites directly via .OKX domains, building a Web3 search experience akin to Google.</p>
+                <p data-en="3. <span class='highlight'>Create Unique Meme Coins</span>: Each .OKX domain can generate a unique Meme Coin, launched on <a href='https://woofingjace.com' target='_blank'>JaceSwap</a> after raising 20 OKB. Numeric domains (e.g., 0.OKX) have an 'X' prefix (e.g., X0)." data-zh="3. <span class='highlight'>创建唯一Meme币</span>：每个.OKX域名可生成一个独一无二的Meme币，集资20 OKB后在<a href='https://swap.woofingjace.com/' target='_blank'>JaceSwap</a>上线。纯数字域名（如0.OKX）生成代币符号时自动添加“X”前缀（如X0）。">3. <span class='highlight'>Create Unique Meme Coins</span>: Each .OKX domain can generate a unique Meme Coin, launched on <a href='https://woofingjace.com' target='_blank'>JaceSwap</a> after raising 20 OKB. Numeric domains (e.g., 0.OKX) have an 'X' prefix (e.g., X0).</p>
+            </div>
+            <div class="section">
+                <h2 data-en="How to Join X0" data-zh="如何参与X0">How to Join X0</h2>
+                <p data-en="1. Visit <a href='https://woofingjace.com/okxfun/?domain=0.OKX' target='_blank'>0.OKX</a>, search the domain, and explore X0 details." data-zh="1. 访问<a href='https://woofingjace.com/okxfun/?domain=0.OKX' target='_blank'>0.OKX</a>，搜索域名，查看X0详情。">1. Visit <a href='https://woofingjace.com/okxfun/?domain=0.OKX' target='_blank'>0.OKX</a>, search the domain, and explore X0 details.</p>
+                <p data-en="2. Access the trading pages:" data-zh="2. 访问交易页面：">2. Access the trading pages:</p>
+                <p data-en="- English: <a href='https://woofingjace.com/fun/?token=0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>X0 Trading Page</a>" data-zh="- 英文版：<a href='https://woofingjace.com/fun/?token=0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>X0交易页面</a>">- English: <a href='https://woofingjace.com/fun/?token=0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>X0 Trading Page</a></p>
+                <p data-en="- Chinese: <a href='https://woofingjace.com/funcn/?token=0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>X0 Trading Page</a>" data-zh="- 中文版：<a href='https://woofingjace.com/funcn/?token=0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>X0交易页面</a>">- Chinese: <a href='https://woofingjace.com/funcn/?token=0x428dC4b69A05C128966f2A03693dEAac409F1EC5' target='_blank'>X0 Trading Page</a></p>
+                <p data-en="3. Register a .OKX domain for free and create your own unique Meme Coin!" data-zh="3. 免费注册.OKX域名，创建属于你的独一无二Meme币！">3. Register a .OKX domain for free and create your own unique Meme Coin!</p>
+            </div>
+            <div class="section">
+                <h2 data-en="About .OKX Domains" data-zh="关于.OKX域名">About .OKX Domains</h2>
+                <p data-en=".OKX domains are a decentralized identity system on X Layer, each with unique and exclusive properties, akin to blockchain inscriptions. Create Meme Coins, bind wallet addresses, or link to websites to shape your Web3 future!" data-zh=".OKX域名是X Layer上的去中心化标识系统，每个域名具有唯一性和排他性，类似区块链铭文。创建Meme币、绑定钱包地址或关联网站，定义你的Web3未来！">.OKX domains are a decentralized identity system on X Layer, each with unique and exclusive properties, akin to blockchain inscriptions. Create Meme Coins, bind wallet addresses, or link to websites to shape your Web3 future!</p>
+                <p data-en="Register your .OKX domain now and unlock the potential of Web3!" data-zh="立即注册.OKX域名，释放Web3的无限可能！">Register your .OKX domain now and unlock the potential of Web3!</p>
+            </div>
+        </div>
+        <footer>
+            <p data-en="Powered by <a href='https://x.com/WoofingJace' target='_blank'>WoofingJace</a> and <a href='https://www.okx.com/web3/explorer/xlayer' target='_blank'>X Layer</a> © 2025" data-zh="由<a href='https://x.com/WoofingJace' target='_blank'>WoofingJace</a>和<a href='https://www.okx.com/web3/explorer/xlayer' target='_blank'>X Layer</a>提供支持 © 2025">Powered by <a href='https://x.com/WoofingJace' target='_blank'>WoofingJace</a> and <a href='https://www.okx.com/web3/explorer/xlayer' target='_blank'>X Layer</a> © 2025</p>
+            <p style="margin-top: 0.5rem;" data-en="Not financial advice, do your own research!" data-zh="非金融建议，请自行研究！">Not financial advice, do your own research!</p>
+        </footer>
+    </div>
+    <script>
+        const canvas = document.getElementById('particle-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        const particleCount = 100;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 3 + 1,
+                speedX: Math.random() * 0.5 - 0.25,
+                speedY: Math.random() * 0.5 - 0.25
+            });
+        }
+        function drawParticles() {
+            ctx.fillStyle = 'rgba(10, 10, 20, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 255, 136, 0.5)';
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        function switchLanguage(lang) {
+            document.querySelectorAll('[data-en][data-zh]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${lang}`);
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.style.background = btn.textContent === (lang === 'en' ? 'EN' : '中文') ? 'rgba(0, 255, 136, 0.3)' : 'rgba(0, 255, 136, 0.1)';
+            });
+        }
+    </script>
+</body>
+</html>
