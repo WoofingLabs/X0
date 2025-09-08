@@ -6,6 +6,7 @@
     <title>X0 Whitepaper | Domain-Based Meme Coin on X Layer</title>
     <link rel="icon" href="https://woofswap.finance/image/tokens/xo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --primary-color: #39ff14; /* Neon green for Pepe vibe */
@@ -133,6 +134,7 @@
             text-transform: uppercase;
             margin: 10px 5px;
             transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
         }
 
         .button:hover {
@@ -148,7 +150,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            font-size: 1em;
+            table-layout: fixed; /* Prevent deformation */
         }
 
         th, td {
@@ -156,6 +158,7 @@
             text-align: left;
             border-bottom: 1px solid #4a4a6e;
             vertical-align: top;
+            word-wrap: break-word; /* Ensure text wraps */
         }
 
         th {
@@ -170,18 +173,28 @@
             color: var(--text-color);
         }
 
-        /* Ensure table headers and cells switch languages */
+        /* Column widths to prevent deformation */
+        th:nth-child(1), td:nth-child(1) {
+            width: 20%; /* Feature column */
+        }
+        th:nth-child(2), td:nth-child(2) {
+            width: 40%; /* .OKX column */
+        }
+        th:nth-child(3), td:nth-child(3) {
+            width: 40%; /* BRC20 column */
+        }
+
         th.lang-zh, td.lang-zh {
             display: none;
         }
 
-        .banner {
-            width: 100%;
-            max-width: 1200px;
-            height: auto;
-            margin: 30px 0;
-            border-radius: 15px;
-            border: 2px solid var(--accent-color);
+        .download-buttons {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .download-buttons .button {
+            margin: 0 10px;
         }
 
         footer {
@@ -236,9 +249,15 @@
             }
             table {
                 font-size: 0.9em;
+                table-layout: auto; /* Allow flexibility on mobile */
             }
             th, td {
                 padding: 12px;
+            }
+            th:nth-child(1), td:nth-child(1),
+            th:nth-child(2), td:nth-child(2),
+            th:nth-child(3), td:nth-child(3) {
+                width: auto; /* Reset fixed widths for mobile */
             }
         }
     </style>
@@ -247,6 +266,11 @@
     <div class="lang-toggle">
         <button class="lang-btn active" data-lang="en">English</button>
         <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+
+    <div class="download-buttons">
+        <button class="button download-pdf" data-lang="en">Download English PDF</button>
+        <button class="button download-pdf" data-lang="zh">Download Chinese PDF</button>
     </div>
 
     <header>
@@ -443,7 +467,7 @@
         <p class="lang-zh" style="display: none;">X0 是一个去中心化项目，参与存在风险，建议用户 DYOR（做自己的研究）：</p>
         <ul>
             <li class="lang-en">The cryptocurrency market is highly volatile; invest cautiously.</li>
-            <li class="lang-zh" style="display: none;">加密货币市场波动较大， die="none">投资需谨慎。</li>
+            <li class="lang-zh" style="display: none;">加密货币市场波动较大，投资需谨慎。</li>
             <li class="lang-en">Safeguard your wallet private keys and beware of phishing sites and scams.</li>
             <li class="lang-zh" style="display: none;">用户需妥善管理钱包私钥，谨防钓鱼网站和欺诈。</li>
         </ul>
@@ -474,6 +498,7 @@
     </footer>
 
     <script>
+        // Language Toggle
         const buttons = document.querySelectorAll('.lang-btn');
         const enElements = document.querySelectorAll('.lang-en');
         const zhElements = document.querySelectorAll('.lang-zh');
@@ -491,6 +516,46 @@
                     enElements.forEach(el => el.style.display = 'none');
                     zhElements.forEach(el => el.style.display = 'block');
                 }
+            });
+        });
+
+        // PDF Download
+        const downloadButtons = document.querySelectorAll('.download-pdf');
+        downloadButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lang = button.getAttribute('data-lang');
+                const filename = lang === 'en' ? 'X0_Whitepaper_EN.pdf' : 'X0_Whitepaper_ZH.pdf';
+
+                // Temporarily show only the selected language content
+                if (lang === 'en') {
+                    enElements.forEach(el => el.style.display = 'block');
+                    zhElements.forEach(el => el.style.display = 'none');
+                } else {
+                    enElements.forEach(el => el.style.display = 'none');
+                    zhElements.forEach(el => el.style.display = 'block');
+                }
+
+                // Generate PDF
+                const element = document.body;
+                const options = {
+                    margin: 0.5,
+                    filename: filename,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                html2pdf().from(element).set(options).save().then(() => {
+                    // Restore current language state
+                    const currentLang = document.querySelector('.lang-btn.active').getAttribute('data-lang');
+                    if (currentLang === 'en') {
+                        enElements.forEach(el => el.style.display = 'block');
+                        zhElements.forEach(el => el.style.display = 'none');
+                    } else {
+                        enElements.forEach(el => el.style.display = 'none');
+                        zhElements.forEach(el => el.style.display = 'block');
+                    }
+                });
             });
         });
     </script>
