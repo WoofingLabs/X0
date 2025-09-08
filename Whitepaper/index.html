@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X0 Whitepaper | Domain-Based Meme Coin on X Layer</title>
+    <link rel="icon" href="https://woofswap.finance/image/tokens/xo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #39ff14; /* Neon green for Pepe vibe */
+            --bg-color: #1a1a2e; /* Dark, slightly blue-tinted background */
+            --section-bg: #2e2e4e; /* Slightly lighter section background */
+            --text-color: #ffffff;
+            --accent-color: #ff69b4; /* Hot pink for flair */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px;
+            background: url('https://i.imgur.com/5qZ2XzM.png') no-repeat center fixed, var(--bg-color); /* Subtle Pepe background */
+            background-size: cover;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, var(--section-bg), #12122a);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--primary-color);
+        }
+
+        header img {
+            max-width: 150px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px var(--primary-color));
+        }
+
+        h1 {
+            font-family: 'Comic Neue', cursive;
+            font-size: 3.2em;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px var(--accent-color);
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Comic Neue', cursive;
+            font-size: 2.2em;
+            color: var(--accent-color);
+            margin-top: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            color: var(--primary-color);
+            margin-top: 25px;
+        }
+
+        p {
+            margin: 15px 0;
+            text-align: justify;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background-color: var(--section-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            margin-bottom: 40px;
+            border: 1px solid var(--accent-color);
+        }
+
+        .highlight {
+            background-color: #3a3a5e;
+            padding: 20px;
+            border-left: 6px solid var(--primary-color);
+            border-radius: 10px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--text-color);
+            box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.2);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 25px;
+        }
+
+        ul li {
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        ul li::before {
+            content: "🐸"; /* Pepe emoji for list items */
+            position: absolute;
+            left: -25px;
+            color: var(--primary-color);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary-color);
+            color: #12122a;
+            border-radius: 10px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 10px 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #4a4a6e;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: #12122a;
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.2em;
+        }
+
+        td {
+            color: var(--text-color);
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            margin: 30px 0;
+            border-radius: 15px;
+            border: 2px solid var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #aaa;
+            border-top: 2px dashed var(--primary-color);
+            margin-top: 50px;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .lang-toggle button {
+            background: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Comic Neue', cursive;
+            color: #12122a;
+            margin-left: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .lang-toggle button:hover {
+            background: var(--accent-color);
+        }
+
+        .lang-toggle button.active {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            .section {
+                padding: 20px;
+            }
+            header img {
+                max-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+
+    <header>
+        <img src="https://woofswap.finance/image/tokens/xo.png" alt="X0 Logo">
+        <h1 class="lang-en">X0 Whitepaper</h1>
+        <h1 class="lang-zh" style="display: none;">X0 白皮书</h1>
+        <p class="lang-en">The First Domain-Based Meme Coin on X Layer — Pioneering the Decentralized Domain Ecosystem</p>
+        <p class="lang-zh" style="display: none;">基于 X Layer 的首个域名 Meme 币 —— 去中心化域名生态的先锋</p>
+    </header>
+
+    <div class="section">
+        <h2 class="lang-en">1. Project Overview</h2>
+        <h2 class="lang-zh" style="display: none;">1. 项目概述</h2>
+        <p class="lang-en">X0 is the first Meme coin on the X Layer blockchain, deeply integrated with the .OKX domain protocol, with the token symbol <strong>X0</strong>. It’s not just a digital asset but a unique inscription identifier, embodying the innovative vision of a decentralized domain ecosystem. Through the .OKX domain protocol, users can register, resolve, and utilize domains, creating one-of-a-kind Meme coins and unlocking new Web3 possibilities.</p>
+        <p class="lang-zh" style="display: none;">X0 是基于 X Layer 区块链的首个 Meme 币，与 .OKX 域名协议深度绑定，代币符号为 <strong>X0</strong>。它不仅是数字资产，更是一个独特的铭文标识，承载了去中心化域名生态的创新愿景。通过 .OKX 域名协议，用户可以注册、解析和使用域名，并基于此创建独一无二的 Meme 币，开启 Web3 时代的新玩法。</p>
+        <p class="lang-en">Positioned similarly to ORDI in the BRC20 protocol, X0 is the flagship token of the X Layer domain protocol, aiming to build a decentralized, open, and creative blockchain ecosystem driven by the community.</p>
+        <p class="lang-zh" style="display: none;">X0 的定位类似于 BRC20 协议中的 ORDI，作为 X Layer 域名协议的龙头代币，旨在通过社区驱动，构建一个去中心化、开放且充满创意的区块链生态系统。</p>
+        <div class="highlight">
+            <p class="lang-en"><strong>Vision</strong>: Through the .OKX domain protocol, empower every user to create unique Meme coins, fostering a vibrant decentralized ecosystem.</p>
+            <p class="lang-zh" style="display: none;"><strong>愿景</strong>：通过 .OKX 域名协议，赋予每个用户创建独一无二 Meme 币的能力，打造一个充满活力的去中心化生态。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">2. Core Features</h2>
+        <h2 class="lang-zh" style="display: none;">2. 核心功能</h2>
+        <p class="lang-en">X0 leverages the .OKX domain protocol to offer the following core features, delivering an unprecedented blockchain experience:</p>
+        <p class="lang-zh" style="display: none;">X0 依托 .OKX 域名协议，提供以下核心功能，为用户带来前所未有的区块链体验：</p>
+        <ul>
+            <li class="lang-en"><strong>Domain Registration</strong>: Users can mint .OKX or .OKB domains for free via the <a href="https://woofinglabs.github.io/mint/" class="button" target="_blank">Domain Registration Page</a> or <a href="https://woofinglabs.github.io/mint/cn/" class="button" target="_blank">Chinese Domain Minting Page</a>.</li>
+            <li class="lang-zh" style="display: none;"><strong>域名注册</strong>：通过 <a href="https://woofinglabs.github.io/mint/" class="button" target="_blank">域名注册页面</a> 或 <a href="https://woofinglabs.github.io/mint/cn/" class="button" target="_blank">中文域名铸造页面</a>，用户可以免费铸造 .OKX 或 .OKB 域名。</li>
+            <li class="lang-en"><strong>Domain Resolution</strong>: Bind domains to wallet addresses, websites, or text content using the <a href="https://woofinglabs.github.io/-DomainResolver/" class="button" target="_blank">Domain Resolver Tool</a>.</li>
+            <li class="lang-zh" style="display: none;"><strong>域名解析</strong>：通过 <a href="https://woofinglabs.github.io/-DomainResolver/" class="button" target="_blank">域名解析工具</a>，用户可将域名绑定到钱包地址、网站或文本内容。</li>
+            <li class="lang-en"><strong>Web3 Browser</strong>: Access resolved websites directly with .OKX domains via the <a href="https://woofingjace.com/web3/" class="button" target="_blank">WoofingJace Web3 Browser</a>.</li>
+            <li class="lang-zh" style="display: none;"><strong>Web3 浏览器</strong>：通过 <a href="https://woofingjace.com/web3/" class="button" target="_blank">WoofingJace Web3 浏览器</a>，使用 .OKX 域名直接访问解析的网站。</li>
+            <li class="lang-en"><strong>Meme Coin Creation</strong>: Create decentralized tokens based on domains via the <a href="https://woofingjace.com/okxfun/" class="button" target="_blank">Meme Coin Launchpad</a>.</li>
+            <li class="lang-zh" style="display: none;"><strong>Meme 币创建</strong>：通过 <a href="https://woofingjace.com/okxfun/" class="button" target="_blank">Meme 币发射台</a>，用户可基于域名创建去中心化代币。</li>
+            <li class="lang-en"><strong>On-Chain Tweets</strong>: Post decentralized tweets via the <a href="https://woofingjace.com/xero/?domain=0.OKX" class="button" target="_blank">Tweet Publishing Page</a>, with content stored on-chain by paying gas fees. View updates on the <a href="https://woofingjace.com/list/?domain=0.OKX" class="button" target="_blank">Newsfeed Page</a>.</li>
+            <li class="lang-zh" style="display: none;"><strong>链上推文</strong>：通过 <a href="https://woofingjace.com/xero/?domain=0.OKX" class="button" target="_blank">推文发布页面</a>，用户可发布去中心化推文，支付 Gas 费确保内容存储于区块链，查看动态请访问 <a href="https://woofingjace.com/list/?domain=0.OKX" class="button" target="_blank">信息流页面</a>。</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">3. X0 vs. BRC20 Protocol</h2>
+        <h2 class="lang-zh" style="display: none;">3. X0 与 BRC20 协议对比</h2>
+        <p class="lang-en">The .OKX domain protocol shares similarities with the BRC20 protocol but stands out with unique innovations and use cases. Below is a comparison table highlighting X0’s flagship status, akin to ORDI:</p>
+        <p class="lang-zh" style="display: none;">X0 的 .OKX 域名协议与 BRC20 协议有诸多相似之处，但也在创新性和应用场景上独具特色。以下是对比表格，突出 X0 的龙头地位，类比 ORDI：</p>
+        <table>
+            <tr>
+                <th class="lang-en">Feature</th>
+                <th class="lang-zh" style="display: none;">特性</th>
+                <th class="lang-en">.OKX Domain Protocol (X0)</th>
+                <th class="lang-zh" style="display: none;">.OKX 域名协议 (X0)</th>
+                <th class="lang-en">BRC20 Protocol (ORDI)</th>
+                <th class="lang-zh" style="display: none;">BRC20 协议 (ORDI)</th>
+            </tr>
+            <tr>
+                <td class="lang-en">Core Positioning</td>
+                <td class="lang-zh" style="display: none;">核心定位</td>
+                <td class="lang-en">First domain-based Meme coin on X Layer, flagship token X0</td>
+                <td class="lang-zh" style="display: none;">X Layer 首个域名 Meme 币，龙头代币 X0</td>
+                <td class="lang-en">First inscription token in Bitcoin ecosystem, flagship token ORDI</td>
+                <td class="lang-zh" style="display: none;">比特币生态首个铭文代币，龙头代币 ORDI</td>
+            </tr>
+            <tr>
+                <td class="lang-en">Token Symbol</td>
+                <td class="lang-zh" style="display: none;">代币符号</td>
+                <td class="lang-en">Each .OKX domain can generate a unique Meme coin</td>
+                <td class="lang-zh" style="display: none;">每个 .OKX 域名可生成独一无二的 Meme 币</td>
+                <td class="lang-en">Tokens created via inscriptions have unique symbols</td>
+                <td class="lang-zh" style="display: none;">基于铭文创建的代币拥有独一无二的代币符号</td>
+            </tr>
+            <tr>
+                <td class="lang-en">Minting Method</td>
+                <td class="lang-zh" style="display: none;">铸造方式</td>
+                <td class="lang-en">Mint Meme coins via domain registration and launchpad</td>
+                <td class="lang-zh" style="display: none;">通过域名注册和发射台铸造 Meme 币</td>
+                <td class="lang-en">Mint tokens through inscription (Mint) process</td>
+                <td class="lang-zh" style="display: none;">通过铭文铸造（Mint）生成代币</td>
+            </tr>
+            <tr>
+                <td class="lang-en">Decentralization</td>
+                <td class="lang-zh" style="display: none;">去中心化</td>
+                <td class="lang-en">Fully decentralized, based on X Layer smart contracts</td>
+                <td class="lang-zh" style="display: none;">完全去中心化，基于 X Layer 智能合约</td>
+                <td class="lang-en">Fully decentralized, based on Bitcoin blockchain</td>
+                <td class="lang-zh" style="display: none;">完全去中心化，基于比特币区块链</td>
+            </tr>
+            <tr>
+                <td class="lang-en">Ecosystem Features</td>
+                <td class="lang-zh" style="display: none;">生态功能</td>
+                <td class="lang-en">Domain registration, resolution, Web3 browser, on-chain tweets, Meme coin creation</td>
+                <td class="lang-zh" style="display: none;">域名注册、解析、Web3 浏览器、链上推文、Meme 币创建</td>
+                <td class="lang-en">Inscription minting, trading, community ecosystem expansion</td>
+                <td class="lang-zh" style="display: none;">铭文铸造、交易、社区生态扩展</td>
+            </tr>
+            <tr>
+                <td class="lang-en">Innovation Use Cases</td>
+                <td class="lang-zh" style="display: none;">创新场景</td>
+                <td class="lang-en">Domain-based Meme coin ecosystem, integrating Web3 identity and social features</td>
+                <td class="lang-zh" style="display: none;">基于域名的 Meme 币生态，结合 Web3 身份和社交</td>
+                <td class="lang-en">Bitcoin-based inscription assets, emphasizing scarcity</td>
+                <td class="lang-zh" style="display: none;">基于比特币的铭文资产，强调稀缺性</td>
+            </tr>
+            <tr>
+                <td class="lang-en">Community Driven</td>
+                <td class="lang-zh" style="display: none;">社区驱动</td>
+                <td class="lang-en">Driven by community governance and on-chain tweets</td>
+                <td class="lang-zh" style="display: none;">通过社区治理和链上推文推动生态发展</td>
+                <td class="lang-en">Driven by community participation and market trading</td>
+                <td class="lang-zh" style="display: none;">通过社区参与和市场交易推动发展</td>
+            </tr>
+        </table>
+        <div class="highlight">
+            <p class="lang-en"><strong>X0’s Unique Advantage</strong>: As the flagship of the X Layer domain protocol, X0 combines domain systems with innovative Meme coin mechanics, offering low market cap with high growth potential, attracting community and investors alike.</p>
+            <p class="lang-zh" style="display: none;"><strong>X0 的独特优势</strong>：作为 X Layer 域名协议的龙头，X0 结合了域名系统和 Meme 币的创新玩法，拥有低市值高潜力，吸引社区和投资者共同建设。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">4. Technical Architecture</h2>
+        <h2 class="lang-zh" style="display: none;">4. 技术架构</h2>
+        <h3 class="lang-en">4.1 X Layer Blockchain</h3>
+        <h3 class="lang-zh" style="display: none;">4.1 X Layer 区块链</h3>
+        <p class="lang-en">X0 operates on the X Layer blockchain, a high-performance, low-cost Layer 2 solution designed for decentralized applications and Meme coin ecosystems, offering fast transaction confirmation and low gas fees.</p>
+        <p class="lang-zh" style="display: none;">X0 运行在 X Layer 区块链上，这是一个高性能、低成本的 Layer 2 解决方案，专为去中心化应用和 Meme 币生态设计，提供快速交易确认和低 Gas 费用。</p>
+        
+        <h3 class="lang-en">4.2 .OKX Domain Protocol</h3>
+        <h3 class="lang-zh" style="display: none;">4.2 .OKX 域名协议</h3>
+        <p class="lang-en">The .OKX domain protocol enables domain registration, resolution, and Meme coin creation through smart contracts. Each domain is a unique digital asset, linkable to wallet addresses, websites, or text, forming an innovative Meme coin ecosystem.</p>
+        <p class="lang-zh" style="display: none;">.OKX 域名协议通过智能合约实现域名注册、解析和 Meme 币创建。每个域名都是独一无二的数字资产，可绑定钱包地址、网站或文本，形成创新的 Meme 币生态。</p>
+        
+        <h3 class="lang-en">4.3 Decentralized Tweet System</h3>
+        <h3 class="lang-zh" style="display: none;">4.3 去中心化推文系统</h3>
+        <p class="lang-en">The on-chain tweet system on X Layer allows users to post content via smart contracts, with all tweets stored immutably on the blockchain. View community updates on the <a href="https://woofingjace.com/list/?domain=0.OKX" class="button" target="_blank">Newsfeed Page</a>.</p>
+        <p class="lang-zh" style="display: none;">基于 X Layer 的链上推文功能，用户可通过智能合约发布内容，所有推文存储在区块链上，确保去中心化和不可篡改。查看社区动态请访问 <a href="https://woofingjace.com/list/?domain=0.OKX" class="button" target="_blank">信息流页面</a>。</p>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">5. Tokenomics</h2>
+        <h2 class="lang-zh" style="display: none;">5. 代币经济学</h2>
+        <p class="lang-en">X0 is a fully decentralized token with the contract address <strong>0x428dc4b69a05c128966f2a03693deaac409f1ec5</strong>. Its tokenomics are designed to incentivize community participation and ecosystem growth:</p>
+        <p class="lang-zh" style="display: none;">X0 是一个完全去中心化的代币，合约地址为 <strong>0x428dc4b69a05c128966f2a03693deaac409f1ec5</strong>。代币经济学设计旨在激励社区参与和生态建设：</p>
+        <ul>
+            <li class="lang-en"><strong>Total Supply</strong>: 1,000,000,000.</li>
+            <li class="lang-zh" style="display: none;"><strong>总供应量</strong>：1,000,000,000。</li>
+            <li class="lang-en"><strong>Burned</strong>: 194,668,013.</li>
+            <li class="lang-zh" style="display: none;"><strong>已烧录</strong>：194,668,013。</li>
+            <li class="lang-en"><strong>Current Circulating Supply</strong>: 805,331,986.</li>
+            <li class="lang-zh" style="display: none;"><strong>当前流通供应量</strong>：805,331,986。</li>
+            <li class="lang-en"><strong>Use Cases</strong>: Meme coin, community governance, staking rewards, and other ecosystem functions.</li>
+            <li class="lang-zh" style="display: none;"><strong>用途</strong>：Meme 币、参与社区治理、质押奖励及生态内其他功能。</li>
+        </ul>
+        <div class="highlight">
+            <p class="lang-en"><strong>Community Driven</strong>: X0 relies on the community, not platforms or project teams, to drive token value and ecosystem prosperity.</p>
+            <p class="lang-zh" style="display: none;"><strong>社区驱动</strong>：X0 不依赖平台或项目方，依靠社区共同推动代币价值和生态繁荣。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">6. Core Value of X0</h2>
+        <h2 class="lang-zh" style="display: none;">6. X0 的核心价值</h2>
+        <p class="lang-en">X0 is the pioneer of the X Layer domain ecosystem, with the following core attractions:</p>
+        <p class="lang-zh" style="display: none;">X0 是 X Layer 域名生态的先锋，以下是其核心吸引力：</p>
+        <ul>
+            <li class="lang-en"><strong>Flagship Status</strong>: X0 is the first domain-based Meme coin on X Layer.</li>
+            <li class="lang-zh" style="display: none;"><strong>龙头地位</strong>：X0 是 X Layer 首个域名 Meme 币。</li>
+            <li class="lang-en"><strong>Innovative Mechanics</strong>: Create unique Meme coins via .OKX domains, fostering community creativity.</li>
+            <li class="lang-zh" style="display: none;"><strong>创新玩法</strong>：通过 .OKX 域名创建独一无二的 Meme 币，推动社区创意。</li>
+            <li class="lang-en"><strong>Low Market Cap Potential</strong>: Low current market cap with significant growth potential, attracting early adopters.</li>
+            <li class="lang-zh" style="display: none;"><strong>低市值潜力</strong>：当前市值低，具备巨大增长空间，吸引早期参与者。</li>
+            <li class="lang-en"><strong>Decentralized Ecosystem</strong>: On-chain tweets, domain resolution, and other features are fully decentralized, ensuring user sovereignty.</li>
+            <li class="lang-zh" style="display: none;"><strong>去中心化生态</strong>：链上推文、域名解析等功能完全去中心化，确保用户主权。</li>
+            <li class="lang-en"><strong>Community Empowerment</strong>: Participate in governance and content creation via the <a href="https://t.me/X0_okx" class="button" target="_blank">Telegram Community</a>.</li>
+            <li class="lang-zh" style="display: none;"><strong>社区赋能</strong>：通过 <a href="https://t.me/X0_okx" class="button" target="_blank">Telegram 社区</a> 参与治理和内容创作。</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">7. Community & Ecosystem</h2>
+        <h2 class="lang-zh" style="display: none;">7. 社区与生态</h2>
+        <p class="lang-en">X0’s future is defined by its community. JaceLabs initiated the .OKX domain protocol, but ecosystem growth relies on collective efforts. Join the <a href="https://t.me/X0_okx" class="button" target="_blank">Telegram Community</a> to discuss, propose ideas, and shape X0’s story!</p>
+        <p class="lang-zh" style="display: none;">X0 的未来由社区定义。JaceLabs 发起 .OKX 域名协议，但生态发展依赖社区的共同努力。加入 <a href="https://t.me/X0_okx" class="button" target="_blank">Telegram 社区</a>，参与讨论、提出建议，共同塑造 X0 的故事！</p>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">8. Risk Disclaimer</h2>
+        <h2 class="lang-zh" style="display: none;">8. 风险提示</h2>
+        <p class="lang-en">X0 is a decentralized project, and participation involves risks. Users are advised to DYOR (Do Your Own Research):</p>
+        <p class="lang-zh" style="display: none;">X0 是一个去中心化项目，参与存在风险，建议用户 DYOR（做自己的研究）：</p>
+        <ul>
+            <li class="lang-en">The cryptocurrency market is highly volatile; invest cautiously.</li>
+            <li class="lang-zh" style="display: none;">加密货币市场波动较大，投资需谨慎。</li>
+            <li class="lang-en">Safeguard your wallet private keys and beware of phishing sites and scams.</li>
+            <li class="lang-zh" style="display: none;">用户需妥善管理钱包私钥，谨防钓鱼网站和欺诈。</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2 class="lang-en">9. Contact Us</h2>
+        <h2 class="lang-zh" style="display: none;">9. 联系我们</h2>
+        <p class="lang-en">Learn more about X0 and the .OKX domain protocol via the following links:</p>
+        <p class="lang-zh" style="display: none;">了解更多关于 X0 和 .OKX 域名协议的信息，请访问以下链接：</p>
+        <ul>
+            <li class="lang-en"><strong>Website</strong>: <a href="https://woofingjace.com/web3/?domain=0.OKX" class="button" target="_blank">X0</a></li>
+            <li class="lang-zh" style="display: none;"><strong>官网</strong>： <a href="https://woofingjace.com/web3/?domain=0.OKX" class="button" target="_blank">X0</a></li>
+            <li class="lang-en"><strong>Community</strong>: <a href="https://t.me/X0_okx" class="button" target="_blank">Telegram</a></li>
+            <li class="lang-zh" style="display: none;"><strong>社区</strong>： <a href="https://t.me/X0_okx" class="button" target="_blank">Telegram</a></li>
+            <li class="lang-en"><strong>Newsfeed</strong>: <a href="https://woofingjace.com/list/?domain=0.OKX" class="button" target="_blank">View Updates</a></li>
+            <li class="lang-zh" style="display: none;"><strong>信息流</strong>： <a href="https://woofingjace.com/list/?domain=0.OKX" class="button" target="_blank">查看动态</a></li>
+            <li class="lang-en"><strong>JaceLabs</strong>: <a href="https://x.com/WoofingJace" class="button" target="_blank">JaceLabs</a></li>
+            <li class="lang-zh" style="display: none;"><strong>JaceLabs</strong>: <a href="https://x.com/WoofingJace" class="button" target="_blank">JaceLabs</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <p class="lang-en">© 2025 X0 Project | Community-Driven, Initiated by JaceLabs</p>
+        <p class="lang-zh" style="display: none;">© 2025 X0 项目 | 由社区驱动，JaceLabs 发起</p>
+        <p class="lang-en">DYOR - Do Your Own Research, Build the Decentralized Future!</p>
+        <p class="lang-zh" style="display: none;">DYOR - 做你自己的研究，共同构建去中心化未来！</p>
+    </footer>
+
+    <script>
+        const buttons = document.querySelectorAll('.lang-btn');
+        const enElements = document.querySelectorAll('.lang-en');
+        const zhElements = document.querySelectorAll('.lang-zh');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const lang = button.getAttribute('data-lang');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                if (lang === 'en') {
+                    enElements.forEach(el => el.style.display = 'block');
+                    zhElements.forEach(el => el.style.display = 'none');
+                } else {
+                    enElements.forEach(el => el.style.display = 'none');
+                    zhElements.forEach(el => el.style.display = 'block');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
