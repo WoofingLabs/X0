@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Image Manager - X Layer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://woofingjace.com/images/jace.png" type="image/x-icon">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #121212; color: #E6E6E6; padding: 20px; min-height: 100vh; line-height: 1.5; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px; background: #1A1A1A; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+        h1 { text-align: center; color: #cccccc; font-size: clamp(1.8em, 5vw, 2.5em); margin-bottom: 25px; font-weight: 700; text-transform: uppercase; }
+        .section { background: #222222; padding: 20px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #cccccc; }
+        h2 { color: #cccccc; font-size: clamp(1.2em, 3.5vw, 1.6em); margin-bottom: 15px; font-weight: 600; }
+        .button { background: #333333; color: #ffffff; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; font-size: 1em; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; margin: 5px; }
+        .button:hover { background: #555555; transform: translateY(-2px); }
+        .button:disabled { background: #444444; color: #777777; cursor: not-allowed; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #cccccc; border-radius: 6px; background: #2A2A2A; color: #E6E6E6; font-size: 1em; }
+        input::placeholder { color: #666666; }
+        .status { margin-top: 10px; font-size: 0.9em; color: #cccccc; }
+        .wallet-info { color: #cccccc; font-weight: 600; word-break: break-all; }
+        .output-box { background: #2A2A2A; padding: 15px; border-radius: 6px; margin-bottom: 15px; word-break: break-all; font-size: 0.9em; color: #E6E6E6; }
+        .output-box label { display: block; font-size: 0.9em; margin-bottom: 5px; color: #cccccc; }
+        .image-preview { max-width: 300px; margin: 10px auto; display: block; }
+        .footer { text-align: center; margin-top: 30px; font-size: 0.85em; color: #666666; }
+        .footer a { color: #cccccc; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        .how-it-works { background: #222222; padding: 20px; border-radius: 8px; border: 1px solid #cccccc; margin-top: 20px; }
+        .how-it-works ul { list-style-type: disc; padding-left: 20px; margin-top: 10px; }
+        .how-it-works li { margin-bottom: 12px; font-size: 0.9em; }
+        .how-it-works .highlight { color: #cccccc; font-weight: 600; }
+        .loading { opacity: 0.7; pointer-events: none; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .section, .how-it-works { padding: 15px; }
+            .button { width: 100%; padding: 12px; margin: 8px 0; }
+            .how-it-works ul { padding-left: 15px; }
+            .how-it-works li { font-size: 0.85em; }
+            .image-preview { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Domain Image Manager</h1>
+        <div class="section">
+            <h2>连接到 X Layer</h2>
+            <button id="connectButton" class="button">连接钱包</button>
+            <p>钱包: <span id="walletAddress" class="wallet-info">未连接</span></p>
+            <div id="networkStatus" class="status">点击连接...</div>
+        </div>
+        <div class="section" id="uploadImageSection">
+            <h2>上传图片</h2>
+            <input type="text" id="tokenId" placeholder="输入 Token ID (例如: 123)">
+            <input type="file" id="imageInput" accept="image/*">
+            <img id="preview" class="image-preview" src="" alt="图片预览" style="display: none;">
+            <button id="uploadImage" class="button">上传图片</button>
+            <div id="uploadStatus" class="status"></div>
+        </div>
+        <div class="section" id="queryImageSection">
+            <h2>查询图片</h2>
+            <input type="text" id="queryTokenId" placeholder="输入 Token ID (例如: 123)">
+            <input type="text" id="queryDomain" placeholder="输入域名 (例如: xx.okx)">
+            <button id="queryByTokenId" class="button">通过 Token ID 查询</button>
+            <button id="queryByDomain" class="button">通过域名查询</button>
+            <div class="output-box">
+                <label>图片</label>
+                <img id="imageOutput" class="image-preview" src="" alt="查询结果" style="display: none;">
+            </div>
+            <div id="queryStatus" class="status"></div>
+        </div>
+        <div class="how-it-works">
+            <h2>如何使用？</h2>
+            <p>在 X Layer 上管理你的域名 NFT 图片！</p>
+            <ul>
+                <li><strong>连接钱包</strong>：使用 MetaMask 连接到 X Layer（链 ID: 196）。确保有足够的 <span class="highlight">OKB</span> 或 <span class="highlight">ETH</span> 用于 gas 费用。</li>
+                <li><strong>上传图片</strong>：输入 .okx 域名的 Token ID，上传图片（将自动压缩为 100x100 像素），仅限域名持有者。</li>
+                <li><strong>查询图片</strong>：通过 Token ID 或域名（例如 xx.okx）查询关联的图片。</li>
+                <li><strong>注意</strong>：上传的图片会存储在区块链上，建议使用小尺寸图片以降低 gas 成本。</li>
+            </ul>
+        </div>
+        <div class="footer">
+            由 <a href="https://www.okx.com/web3/explorer/xlayer" target="_blank">X Layer</a> 提供支持 | 域名图片管理器 © 2025
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.0/dist/web3.min.js"></script>
+    <script>
+        let web3, accounts, imageContract;
+        const imageContractAddress = '0xF14A2e532271030Af01F9e164a4950C07d20FFf8';
+        const domainContractAddress = '0xC3ad7bD7e434F4C1C023EbC6fe0AC4705e9518bC';
+        const xLayer = { chainId: 196, name: 'X Layer mainnet', explorerUrl: 'https://www.okx.com/web3/explorer/xlayer', rpcUrl: 'https://rpc.xlayer.tech' };
+
+        const imageContractABI = [
+            {"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"string","name":"imageBase64","type":"string"}],"name":"uploadImage","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"string","name":"imageBase64","type":"string"}],"name":"updateImage","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            {"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getImageByTokenId","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
+            {"inputs":[{"internalType":"string","name":"domain","type":"string"}],"name":"getImageByDomain","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}
+        ];
+
+        async function connectWallet() {
+            const status = document.getElementById('networkStatus');
+            try {
+                if (!window.ethereum) {
+                    status.innerHTML = '未检测到钱包。请安装 <a href="https://metamask.io" target="_blank">MetaMask</a>。';
+                    throw new Error("No wallet detected");
+                }
+                status.innerText = "连接中...";
+                web3 = new Web3(window.ethereum);
+                accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                if (!accounts.length) throw new Error("请解锁或连接您的钱包");
+                const chainId = await web3.eth.getChainId();
+                if (chainId !== 196) {
+                    try {
+                        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0xc4' }] });
+                    } catch (switchError) {
+                        if (switchError.code === 4902) {
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: '0xc4',
+                                    chainName: 'X Layer mainnet',
+                                    nativeCurrency: { name: 'OKB', symbol: 'OKB', decimals: 18 },
+                                    rpcUrls: ['https://rpc.xlayer.tech'],
+                                    blockExplorerUrls: ['https://www.okx.com/web3/explorer/xlayer']
+                                }]
+                            });
+                        } else throw switchError;
+                    }
+                }
+                document.getElementById('walletAddress').innerText = `${accounts[0].slice(0, 6)}...${accounts[0].slice(-4)}`;
+                imageContract = new web3.eth.Contract(imageContractABI, imageContractAddress);
+                status.innerText = "已连接到 X Layer";
+            } catch (error) {
+                console.error(error);
+                status.innerText = "连接失败: " + error.message;
+            }
+        }
+
+        async function checkTokenOwnership(tokenId) {
+            const erc721Contract = new web3.eth.Contract([
+                {"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}
+            ], domainContractAddress);
+            try {
+                const owner = await erc721Contract.methods.ownerOf(tokenId).call();
+                return owner.toLowerCase() === accounts[0].toLowerCase();
+            } catch (error) {
+                console.error("Ownership check failed:", error);
+                return false;
+            }
+        }
+
+        async function uploadImage() {
+            const section = document.getElementById('uploadImageSection');
+            const status = document.getElementById('uploadStatus');
+            const tokenId = document.getElementById('tokenId').value.trim();
+            const file = document.getElementById('imageInput').files[0];
+            if (!tokenId || isNaN(tokenId) || Number(tokenId) < 0) {
+                status.innerText = "请输入有效的 Token ID（正整数）";
+                return;
+            }
+            if (!file) {
+                status.innerText = "请先选择一张图片";
+                return;
+            }
+            if (!accounts) {
+                status.innerText = "请先连接您的钱包！";
+                return;
+            }
+            try {
+                section.classList.add('loading');
+                status.innerText = "正在检查所有权...";
+                const isOwned = await checkTokenOwnership(tokenId);
+                if (!isOwned) {
+                    status.innerText = "该地址不拥有对应的 Token ID";
+                    return;
+                }
+                status.innerText = "正在压缩图片...";
+                const base64String = await compressImage(file);
+                status.innerText = "正在上传图片...";
+                const isImageExists = await imageContract.methods.getImageByTokenId(tokenId).call();
+                const method = isImageExists.length > 0 ? 'updateImage' : 'uploadImage';
+                const gas = await imageContract.methods[method](tokenId, base64String).estimateGas({ from: accounts[0] }).catch(() => 600000);
+                const tx = await imageContract.methods[method](tokenId, base64String).send({ from: accounts[0], gas: Math.floor(gas * 1.2) });
+                status.innerHTML = `图片已${method === 'uploadImage' ? '上传' : '更新'} (<a href="${xLayer.explorerUrl}/tx/${tx.transactionHash}" target="_blank">查看交易</a>)`;
+                document.getElementById('tokenId').value = '';
+                document.getElementById('imageInput').value = '';
+                document.getElementById('preview').style.display = 'none';
+            } catch (error) {
+                console.error(error);
+                status.innerText = `图片${isImageExists.length > 0 ? '更新' : '上传'}失败: ` + (error.message.includes('revert') ? error.message.split('revert')[1]?.trim() || '未知原因' : error.message);
+            } finally {
+                section.classList.remove('loading');
+            }
+        }
+
+        async function compressImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 100;
+                        canvas.height = 100;
+                        const ctx = canvas.getContext('2d');
+                        const aspectRatio = img.width / img.height;
+                        let drawWidth, drawHeight, offsetX, offsetY;
+                        if (aspectRatio > 1) {
+                            drawHeight = 100;
+                            drawWidth = 100 * aspectRatio;
+                            offsetX = -(drawWidth - 100) / 2;
+                            offsetY = 0;
+                        } else {
+                            drawWidth = 100;
+                            drawHeight = 100 / aspectRatio;
+                            offsetX = 0;
+                            offsetY = -(drawHeight - 100) / 2;
+                        }
+                        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                        const base64String = canvas.toDataURL('image/jpeg', 0.8).split(',')[1]; // 去掉前缀
+                        document.getElementById('preview').src = canvas.toDataURL('image/jpeg', 0.8);
+                        document.getElementById('preview').style.display = 'block';
+                        resolve(base64String);
+                    };
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function queryImageByTokenId() {
+            const section = document.getElementById('queryImageSection');
+            const status = document.getElementById('queryStatus');
+            const tokenId = document.getElementById('queryTokenId').value.trim();
+            if (!tokenId || isNaN(tokenId) || Number(tokenId) < 0) {
+                status.innerText = "请输入有效的 Token ID（正整数）";
+                return;
+            }
+            if (!accounts) {
+                status.innerText = "请先连接您的钱包！";
+                return;
+            }
+            try {
+                section.classList.add('loading');
+                status.innerText = "正在查询图片...";
+                const base64 = await imageContract.methods.getImageByTokenId(tokenId).call();
+                if (base64.length === 0) {
+                    status.innerText = "该 Token ID 没有关联的图片";
+                    document.getElementById('imageOutput').style.display = 'none';
+                    return;
+                }
+                document.getElementById('imageOutput').src = `data:image/jpeg;base64,${base64}`;
+                document.getElementById('imageOutput').style.display = 'block';
+                status.innerText = "图片查询成功";
+            } catch (error) {
+                console.error(error);
+                status.innerText = "查询失败: " + (error.message.includes('revert') ? error.message.split('revert')[1]?.trim() || '未知原因' : error.message);
+            } finally {
+                section.classList.remove('loading');
+            }
+        }
+
+        async function queryImageByDomain() {
+            const section = document.getElementById('queryImageSection');
+            const status = document.getElementById('queryStatus');
+            const domain = document.getElementById('queryDomain').value.trim();
+            if (!domain) {
+                status.innerText = "请输入有效的域名（例如 xx.okx）";
+                return;
+            }
+            if (!accounts) {
+                status.innerText = "请先连接您的钱包！";
+                return;
+            }
+            try {
+                section.classList.add('loading');
+                status.innerText = "正在查询图片...";
+                const base64 = await imageContract.methods.getImageByDomain(domain).call();
+                if (base64.length === 0) {
+                    status.innerText = "该域名没有关联的图片";
+                    document.getElementById('imageOutput').style.display = 'none';
+                    return;
+                }
+                document.getElementById('imageOutput').src = `data:image/jpeg;base64,${base64}`;
+                document.getElementById('imageOutput').style.display = 'block';
+                status.innerText = "图片查询成功";
+            } catch (error) {
+                console.error(error);
+                status.innerText = "查询失败: " + (error.message.includes('revert') ? error.message.split('revert')[1]?.trim() || '未知原因' : error.message);
+            } finally {
+                section.classList.remove('loading');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('connectButton').addEventListener('click', connectWallet);
+            document.getElementById('uploadImage').addEventListener('click', uploadImage);
+            document.getElementById('queryByTokenId').addEventListener('click', queryImageByTokenId);
+            document.getElementById('queryByDomain').addEventListener('click', queryImageByDomain);
+            document.getElementById('imageInput').addEventListener('change', async (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    await compressImage(file);
+                }
+            });
+            if (!window.location.protocol.startsWith('http')) document.getElementById('networkStatus').innerHTML = '请通过本地服务器（例如 "npx serve"）运行此页面以连接 MetaMask。';
+            else if (!window.ethereum) document.getElementById('networkStatus').innerHTML = '未检测到钱包。请安装 <a href="https://metamask.io">MetaMask</a>。';
+        });
+    </script>
+</body>
+</html>
